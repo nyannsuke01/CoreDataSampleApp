@@ -14,6 +14,7 @@
 		CE58594324DEEECC00A32FF9 /* CoreDataSampleApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE58594124DEEECC00A32FF9 /* CoreDataSampleApp.xcdatamodeld */; };
 		CE58594524DEEED200A32FF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE58594424DEEED200A32FF9 /* Assets.xcassets */; };
 		CE58594824DEEED200A32FF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE58594624DEEED200A32FF9 /* LaunchScreen.storyboard */; };
+		CE58595024DEF35C00A32FF9 /* EditPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58594F24DEF35C00A32FF9 /* EditPlanViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		CE58594424DEEED200A32FF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE58594724DEEED200A32FF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE58594924DEEED200A32FF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE58594F24DEF35C00A32FF9 /* EditPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				CE58593A24DEEECC00A32FF9 /* SceneDelegate.swift */,
 				CE58593C24DEEECC00A32FF9 /* ViewController.swift */,
 				CE58593E24DEEECC00A32FF9 /* Main.storyboard */,
+				CE58594F24DEF35C00A32FF9 /* EditPlanViewController.swift */,
 				CE58594424DEEED200A32FF9 /* Assets.xcassets */,
 				CE58594624DEEED200A32FF9 /* LaunchScreen.storyboard */,
 				CE58594924DEEED200A32FF9 /* Info.plist */,
@@ -143,6 +146,7 @@
 			files = (
 				CE58594324DEEECC00A32FF9 /* CoreDataSampleApp.xcdatamodeld in Sources */,
 				CE58593D24DEEECC00A32FF9 /* ViewController.swift in Sources */,
+				CE58595024DEF35C00A32FF9 /* EditPlanViewController.swift in Sources */,
 				CE58593924DEEECC00A32FF9 /* AppDelegate.swift in Sources */,
 				CE58593B24DEEECC00A32FF9 /* SceneDelegate.swift in Sources */,
 			);
