@@ -114,7 +114,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="Pha-so-4o8"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -170,6 +169,12 @@
                         <viewLayoutGuide key="safeArea" id="33G-JZ-caA"/>
                     </view>
                     <navigationItem key="navigationItem" title="EDIT PLAN" id="jur-Y0-i3n"/>
+                    <connections>
+                        <outlet property="detailTextView" destination="lcr-hg-1yD" id="fhn-fD-k0c"/>
+                        <outlet property="fromDatePicker" destination="2I6-sa-4PO" id="fLe-p8-v3K"/>
+                        <outlet property="titleTextField" destination="tst-bf-1xi" id="HGs-Me-5hS"/>
+                        <outlet property="toDatePicker" destination="V5v-ZZ-5Bg" id="kez-Ci-lDp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fq-iK-pti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -178,7 +183,7 @@
         <!--TASKS-->
         <scene sceneID="l6I-co-kFM">
             <objects>
-                <viewController id="MOd-AH-Nfc" sceneMemberID="viewController">
+                <viewController id="MOd-AH-Nfc" customClass="TaskViewController" customModule="CoreDataSampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="44k-wb-8JO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,10 +227,10 @@
             </objects>
             <point key="canvasLocation" x="2898.5507246376815" y="126.5625"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Task View Controller-->
         <scene sceneID="2Dj-LB-zdf">
             <objects>
-                <viewController id="5TE-kB-01H" sceneMemberID="viewController">
+                <viewController id="5TE-kB-01H" customClass="AddTaskViewController" customModule="CoreDataSampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o9R-d4-2jw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -259,7 +264,6 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="154" id="t2E-D1-oIh"/>
                                                 </constraints>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -303,6 +307,10 @@
                         <viewLayoutGuide key="safeArea" id="Lgn-Pl-4qp"/>
                     </view>
                     <navigationItem key="navigationItem" id="exf-EY-z45"/>
+                    <connections>
+                        <outlet property="detailTextView" destination="92f-J6-lua" id="7Wm-Rd-2Lx"/>
+                        <outlet property="titleTextField" destination="lfm-l2-jE5" id="cYr-c4-uD7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="poY-EQ-zVQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
