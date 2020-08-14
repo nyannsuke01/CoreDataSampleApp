@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
 
-    // tasks配列を定義
-    var tasks :[Task] = []
+    // taskArray配列を定義 //realmのときの書き方を修正
+    var taskArray :[Task] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +23,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
     }
 
+    // 入力画面から戻ってきた時に TableView を更新させる
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return taskArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        // Cellに値を設定する.  --- ここから ---
-        let task = tasks[indexPath.row]
+        // Cellに値を設定する.
+        let task = taskArray[indexPath.row]
         cell.textLabel?.text = task.title
 
         let formatter = DateFormatter()
@@ -41,16 +48,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         return cell
     }
+
+    // 各セルを選択した時に実行されるメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "cellSegue", sender: nil)
-        
     }
 
+    // セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
+
+    // Delete ボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
+        if editingStyle == .delete {
+            // データベースから削除する
+            try! realm.write {
+                self.realm.delete(self.taskArray[indexPath.row])
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
 
     // segue で画面遷移する時に呼ばれる
@@ -60,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "cellSegue" {
             let indexPath = self.tableView.indexPathForSelectedRow
             //(不明点: indexPath!.row番目のタスクをEditPlanViewControllerに渡したい)
-            EditPlanViewController.task = tasks[indexPath!.row]
+            EditPlanViewController.task = taskArray[indexPath!.row]
         } else {
             let task = Task()
             //(不明点: realm を使わずallTasksを定義したい)

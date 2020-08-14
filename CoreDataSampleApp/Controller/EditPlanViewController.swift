@@ -16,6 +16,11 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var fromDatePicker: UIDatePicker!
     @IBOutlet weak var toDatePicker: UIDatePicker!
 
+    var task: Task!
+
+    // CoreDataに指令を出すmanagedObjectContextを生成
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    let managedContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +31,31 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
         titleTextField.delegate = self
         detailTextView.delegate = self
 
+        titleTextField.text = task.title
+        detailTextView.text = task.detail
+        fromDatePicker.date = task.date
+        toDatePicker.date = task.date
+
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        try! realm.write {
+            self.task.title = self.titleTextField.text!
+            self.task.contents = self.contentsTextView.text
+            self.task.date = self.datePicker.date
+            self.realm.add(self.task, update: .modified)
+        }
+
+        super.viewWillDisappear(animated)
     }
 
     @objc func dismissKeyboard(){
         // キーボードを閉じる
         view.endEditing(true)
     }
-    // ①Planを新規作成(追加)する処理
-    // CoreDataに指令を出すmanagedObjectContextを生成
-    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    // (不明点)appDelegateにmanagedObjectContextがないようですが、別に定義されたものを使うのでしょうか？
-    let managedContext: NSManagedObjectContext = appDelegate.managedObjectContext
 
-    // Shopエンティティを指定
+    // ①Planを新規作成(追加)する処理
+    // Planエンティティを指定
     let entity = NSEntityDescription.entityForName("Plan", inManagedObjectContext: managedContext)
     let plan = Plan(entity: entity!, insertInto: managedContext)
     // データ追加
@@ -73,6 +90,4 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }catch{
 
     }
-
-
 }
