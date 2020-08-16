@@ -19,8 +19,7 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
     var task: Task!
 
     // CoreDataに指令を出すmanagedObjectContextを生成
-    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    let managedContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+    let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,61 +32,16 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
 
         titleTextField.text = task.title
         detailTextView.text = task.detail
-        fromDatePicker.date = task.date
-        toDatePicker.date = task.date
+//        fromDatePicker.date = task.date
+//        toDatePicker.date = task.date
 
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        try! realm.write {
-            self.task.title = self.titleTextField.text!
-            self.task.contents = self.contentsTextView.text
-            self.task.date = self.datePicker.date
-            self.realm.add(self.task, update: .modified)
-        }
-
-        super.viewWillDisappear(animated)
-    }
 
     @objc func dismissKeyboard(){
         // キーボードを閉じる
         view.endEditing(true)
     }
 
-    // ①Planを新規作成(追加)する処理
-    // Planエンティティを指定
-    let entity = NSEntityDescription.entityForName("Plan", inManagedObjectContext: managedContext)
-    let plan = Plan(entity: entity!, insertInto: managedContext)
-    // データ追加
-    plan.id = 1
-    plan.title = "市場"
-    // 保存
-    do{
-        try managedObjectContext.save()
-    }catch{
 
-    }
-
-    // ②セルが選択されてこの画面に来た場合のPlanの編集(更新)処理
-    // 更新するデータを指定する。この場合ショップ名が市場のレコード。
-    let predict = NSPredicate(format: "%K=%@", "name", "市場")
-    fetchReq.predicate = predict
-    // データを格納する空の配列を用意
-    var results = []
-    // 読み込み実行
-    do {
-        results = try managedObjectContext.executeFetchRequest(fetchReq)
-    }catch{
-
-    }
-
-    let shop = results[0] as! Shop
-    shop.id = 2
-    shop.name = "牧場"
-    // 保存
-    do{
-        try managedObjectContext.save()
-    }catch{
-
-    }
 }

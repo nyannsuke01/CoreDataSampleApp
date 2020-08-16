@@ -9,10 +9,12 @@
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
         <attribute name="detail" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="plan_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
     </entity>
     <elements>
         <element name="Plan" positionX="-63" positionY="-18" width="128" height="118"/>
-        <element name="Task" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="Task" positionX="-54" positionY="-9" width="128" height="103"/>
     </elements>
 </model>

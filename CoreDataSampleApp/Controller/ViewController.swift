@@ -13,6 +13,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var tableView: UITableView!
 
+    // CoreDataに指令を出すmanagedContextを生成
+    let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     // taskArray配列を定義 //realmのときの書き方を修正
     var taskArray :[Task] = []
 
@@ -23,10 +26,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
     }
 
-    // 入力画面から戻ってきた時に TableView を更新させる
+    // 入力画面から戻ってきた時にTableViewを更新させる　(全件表示)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        
+        //複数回呼ばれるところで取得のコードを書けば良い
+        // 読み込むエンティティを指定
+        let fetchReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Plan")
+        // データを格納する空の配列を用意
+        var results = [] as NSArray
+        // 読み込み実行
+        do {
+            results = try managedContext.fetch(fetchReq) as NSArray
+        }catch{
+
+        }
+        // Planインスタンスを生成
+        let plan = results[0] as! Plan
+        // データにアクセス
+        print(plan)
+
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,8 +63,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
-        let dateString:String = formatter.string(from: task.date)
-        cell.detailTextLabel?.text = dateString
+//        let dateString:String = formatter.string(from: task.date)
+//        cell.detailTextLabel?.text = dateString
         
         return cell
     }
@@ -63,10 +83,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // データベースから削除する
-            try! realm.write {
-                self.realm.delete(self.taskArray[indexPath.row])
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+//            try! realm.write {
+//                //データの削除
+//                self.realm.delete(self.taskArray[indexPath.row])
+//                //テーブルの削除
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//            }
         }
     }
 
@@ -81,10 +103,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             let task = Task()
             //(不明点: realm を使わずallTasksを定義したい)
-            let allTasks = realm.objects(Task.self)
-            if allTasks.count != 0 {
-                task.id = allTasks.max(ofProperty: "id")! + 1
-            }
+//            let allTasks = realm.objects(Task.self)
+//            if allTasks.count != 0 {
+//                task.id = allTasks.max(ofProperty: "id")! + 1
+//            }
 
             EditPlanViewController.task = task
         }
