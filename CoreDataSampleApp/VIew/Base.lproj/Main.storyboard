@@ -92,13 +92,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE(from)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSZ-UK-cS1">
-                                <rect key="frame" x="45" y="337" width="147" height="21"/>
+                                <rect key="frame" x="45" y="289" width="147" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE(to)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bg7-sJ-DVR">
-                                <rect key="frame" x="45" y="478" width="121" height="21"/>
+                                <rect key="frame" x="45" y="446" width="121" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -109,32 +109,35 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lcr-hg-1yD">
-                                <rect key="frame" x="144" y="200" width="240" height="128"/>
+                                <rect key="frame" x="144" y="200" width="240" height="81"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="Pha-so-4o8"/>
+                                    <constraint firstAttribute="height" constant="81" id="Pha-so-4o8"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="2I6-sa-4PO">
-                                <rect key="frame" x="0.0" y="358" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="318" width="414" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="s9W-hz-7Vm"/>
                                 </constraints>
                             </datePicker>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="V5v-ZZ-5Bg">
-                                <rect key="frame" x="0.0" y="499" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="475" width="414" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="GPF-8q-S8F"/>
                                 </constraints>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzm-PQ-7vD">
-                                <rect key="frame" x="153" y="659" width="108" height="30"/>
+                                <rect key="frame" x="111" y="603" width="164" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="164" id="xfy-Wu-F75"/>
+                                </constraints>
                                 <state key="normal" title="SHOW TASKS▶︎"/>
                                 <connections>
-                                    <segue destination="MOd-AH-Nfc" kind="show" id="b0b-ex-H1a"/>
+                                    <action selector="showTask:" destination="QTx-nK-eWB" eventType="touchUpInside" id="rDJ-Vk-vyq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -143,27 +146,27 @@
                             <constraint firstItem="iZd-zM-7d5" firstAttribute="top" secondItem="33G-JZ-caA" secondAttribute="top" constant="45" id="4DX-mn-Z8q"/>
                             <constraint firstItem="tst-bf-1xi" firstAttribute="top" secondItem="33G-JZ-caA" secondAttribute="top" constant="38" id="4kb-Rg-mFw"/>
                             <constraint firstItem="VSZ-UK-cS1" firstAttribute="leading" secondItem="33G-JZ-caA" secondAttribute="leading" constant="45" id="7Z9-4o-9o7"/>
-                            <constraint firstItem="VSZ-UK-cS1" firstAttribute="top" secondItem="AFg-lb-fH2" secondAttribute="bottom" constant="117" id="9bN-dN-Rfw"/>
+                            <constraint firstItem="VSZ-UK-cS1" firstAttribute="top" secondItem="AFg-lb-fH2" secondAttribute="bottom" constant="69" id="9bN-dN-Rfw"/>
                             <constraint firstItem="33G-JZ-caA" firstAttribute="trailing" secondItem="VSZ-UK-cS1" secondAttribute="trailing" constant="222" id="9dd-Rl-FTz"/>
-                            <constraint firstItem="Fzm-PQ-7vD" firstAttribute="top" secondItem="V5v-ZZ-5Bg" secondAttribute="bottom" constant="40" id="FVv-9M-9sS"/>
+                            <constraint firstItem="Fzm-PQ-7vD" firstAttribute="centerX" secondItem="PYM-VO-J1A" secondAttribute="centerX" constant="-14" id="Fpj-JY-t9W"/>
                             <constraint firstItem="33G-JZ-caA" firstAttribute="trailing" secondItem="lcr-hg-1yD" secondAttribute="trailing" constant="30" id="GQ7-KQ-87D"/>
                             <constraint firstItem="AFg-lb-fH2" firstAttribute="top" secondItem="iZd-zM-7d5" secondAttribute="bottom" constant="45" id="HxG-kG-p2B"/>
                             <constraint firstItem="tst-bf-1xi" firstAttribute="leading" secondItem="iZd-zM-7d5" secondAttribute="trailing" constant="55" id="LpP-Dl-Tgv"/>
                             <constraint firstItem="lcr-hg-1yD" firstAttribute="leading" secondItem="AFg-lb-fH2" secondAttribute="trailing" constant="43" id="Mvh-wR-wej"/>
                             <constraint firstItem="AFg-lb-fH2" firstAttribute="leading" secondItem="33G-JZ-caA" secondAttribute="leading" constant="45" id="QSa-RP-NFD"/>
-                            <constraint firstItem="bg7-sJ-DVR" firstAttribute="top" secondItem="2I6-sa-4PO" secondAttribute="bottom" id="Zfi-Bv-u3i"/>
+                            <constraint firstItem="Fzm-PQ-7vD" firstAttribute="top" secondItem="V5v-ZZ-5Bg" secondAttribute="bottom" constant="8" id="YYZ-gt-Myx"/>
+                            <constraint firstItem="bg7-sJ-DVR" firstAttribute="top" secondItem="2I6-sa-4PO" secondAttribute="bottom" constant="8" id="Zfi-Bv-u3i"/>
                             <constraint firstItem="iZd-zM-7d5" firstAttribute="leading" secondItem="33G-JZ-caA" secondAttribute="leading" constant="45" id="anx-In-JqE"/>
                             <constraint firstItem="2I6-sa-4PO" firstAttribute="leading" secondItem="33G-JZ-caA" secondAttribute="leading" id="b3T-b6-2S7"/>
                             <constraint firstItem="33G-JZ-caA" firstAttribute="trailing" secondItem="bg7-sJ-DVR" secondAttribute="trailing" constant="248" id="fGH-Th-Own"/>
-                            <constraint firstItem="Fzm-PQ-7vD" firstAttribute="centerX" secondItem="PYM-VO-J1A" secondAttribute="centerX" id="j0o-A6-va9"/>
                             <constraint firstItem="bg7-sJ-DVR" firstAttribute="leading" secondItem="33G-JZ-caA" secondAttribute="leading" constant="45" id="k4p-4t-Pho"/>
                             <constraint firstItem="33G-JZ-caA" firstAttribute="trailing" secondItem="tst-bf-1xi" secondAttribute="trailing" constant="30" id="nJj-Ht-osc"/>
                             <constraint firstItem="2I6-sa-4PO" firstAttribute="trailing" secondItem="33G-JZ-caA" secondAttribute="trailing" id="rdp-PJ-8n5"/>
-                            <constraint firstItem="2I6-sa-4PO" firstAttribute="top" secondItem="lcr-hg-1yD" secondAttribute="bottom" constant="30" id="t6h-hB-nwE"/>
+                            <constraint firstItem="2I6-sa-4PO" firstAttribute="top" secondItem="lcr-hg-1yD" secondAttribute="bottom" constant="37" id="t6h-hB-nwE"/>
                             <constraint firstItem="lcr-hg-1yD" firstAttribute="top" secondItem="tst-bf-1xi" secondAttribute="bottom" constant="37" id="tZQ-ah-bqj"/>
-                            <constraint firstItem="V5v-ZZ-5Bg" firstAttribute="top" secondItem="bg7-sJ-DVR" secondAttribute="bottom" id="tcm-Qa-qci"/>
+                            <constraint firstItem="V5v-ZZ-5Bg" firstAttribute="top" secondItem="bg7-sJ-DVR" secondAttribute="bottom" constant="8" id="tcm-Qa-qci"/>
                             <constraint firstItem="V5v-ZZ-5Bg" firstAttribute="trailing" secondItem="33G-JZ-caA" secondAttribute="trailing" id="u14-e0-I9l"/>
-                            <constraint firstItem="2I6-sa-4PO" firstAttribute="top" secondItem="VSZ-UK-cS1" secondAttribute="bottom" id="xDA-6X-68I"/>
+                            <constraint firstItem="2I6-sa-4PO" firstAttribute="top" secondItem="VSZ-UK-cS1" secondAttribute="bottom" constant="8" id="xDA-6X-68I"/>
                             <constraint firstItem="V5v-ZZ-5Bg" firstAttribute="leading" secondItem="33G-JZ-caA" secondAttribute="leading" id="zL6-Ew-Uii"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="33G-JZ-caA"/>
@@ -174,6 +177,7 @@
                         <outlet property="fromDatePicker" destination="2I6-sa-4PO" id="fLe-p8-v3K"/>
                         <outlet property="titleTextField" destination="tst-bf-1xi" id="HGs-Me-5hS"/>
                         <outlet property="toDatePicker" destination="V5v-ZZ-5Bg" id="kez-Ci-lDp"/>
+                        <segue destination="MOd-AH-Nfc" kind="show" identifier="toTasks" id="mhO-uY-TIm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fq-iK-pti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -192,12 +196,21 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" id="aHI-DK-aXz">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" textLabel="BV4-IX-1tf" style="IBUITableViewCellStyleDefault" id="aHI-DK-aXz">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aHI-DK-aXz" id="beq-kB-stp">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BV4-IX-1tf">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -220,6 +233,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="tableView" destination="6Q7-8N-2Of" id="HGV-Bs-6sA"/>
                         <segue destination="5TE-kB-01H" kind="show" identifier="taskCellSegue" id="EvU-gF-qEX"/>
                     </connections>
                 </viewController>

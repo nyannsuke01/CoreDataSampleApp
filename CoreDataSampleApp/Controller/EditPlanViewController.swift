@@ -16,9 +16,9 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var fromDatePicker: UIDatePicker!
     @IBOutlet weak var toDatePicker: UIDatePicker!
 
-    var task: Task!
+    var plan: Plan!
 
-    // CoreDataに指令を出すmanagedObjectContextを生成
+    // CoreDataに指令を出すmanagedContextを生成
     let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
@@ -30,11 +30,34 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
         titleTextField.delegate = self
         detailTextView.delegate = self
 
-        titleTextField.text = task.title
-        detailTextView.text = task.detail
-//        fromDatePicker.date = task.date
-//        toDatePicker.date = task.date
+//        titleTextField?.text = plan.title
+//        detailTextView?.text = plan.detail
+//        fromDatePicker?.date = plan.date_to!
+//        toDatePicker?.date = plan.date_from!
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        // CoreDataに指令を出すmanagedContextを生成
+        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+       // let plan = Plan(context: managedContext)
+
+        // Shopエンティティを指定
+        let entity = NSEntityDescription.entity(forEntityName: "Plan", in: managedContext)
+        let plan = Plan(entity: entity!, insertInto: managedContext)
+        plan.title = titleTextField.text!
+        plan.detail = detailTextView.text!
+        plan.date_from = fromDatePicker.date
+        plan.date_to = toDatePicker.date
+        //保存
+      //  (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        do{
+             try (UIApplication.shared.delegate as! AppDelegate).saveContext()
+         }catch{
+            print("保存ができませんでした")
+         }
+        
+        super.viewWillDisappear(animated)
     }
 
 
@@ -43,5 +66,9 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
         view.endEditing(true)
     }
 
+    @IBAction func showTask(_ sender: Any) {
+        self.performSegue(withIdentifier: "toTasks", sender: nil)
+        
+    }
 
 }

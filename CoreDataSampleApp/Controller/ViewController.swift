@@ -13,11 +13,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var tableView: UITableView!
 
-    // CoreDataに指令を出すmanagedContextを生成
     let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    // taskArray配列を定義 //realmのときの書き方を修正
-    var taskArray :[Task] = []
+    // planArray配列を定義 //realmのときの書き方を修正
+    var planArray : [Plan] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,42 +27,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 入力画面から戻ってきた時にTableViewを更新させる　(全件表示)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getData()
         tableView.reloadData()
-        
-        //複数回呼ばれるところで取得のコードを書けば良い
-        // 読み込むエンティティを指定
-        let fetchReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Plan")
-        // データを格納する空の配列を用意
-        var results = [] as NSArray
-        // 読み込み実行
-        do {
-            results = try managedContext.fetch(fetchReq) as NSArray
-        }catch{
-
-        }
-        // Planインスタンスを生成
-        let plan = results[0] as! Plan
-        // データにアクセス
-        print(plan)
 
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskArray.count
+        return planArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         // Cellに値を設定する.
-        let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
+        let plan = planArray[indexPath.row]
+        cell.textLabel?.text = plan.title
 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
-//        let dateString:String = formatter.string(from: task.date)
-//        cell.detailTextLabel?.text = dateString
+        let fromDateString:String = formatter.string(from: plan.date_from!)
+        let toDateString:String = formatter.string(from: plan.date_to!)
+
+        cell.detailTextLabel?.text = fromDateString + " ~ " + toDateString
         
         return cell
     }
@@ -82,13 +67,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Delete ボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // データベースから削除する
-//            try! realm.write {
-//                //データの削除
-//                self.realm.delete(self.taskArray[indexPath.row])
-//                //テーブルの削除
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//            }
+
+            let task = planArray[indexPath.row]
+            managedContext.delete(task)
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+
+            do {
+                planArray = try managedContext.fetch(Plan.fetchRequest())
+            }
+            catch{
+                print("読み込み失敗！")
+            }
+        }
+        tableView.reloadData()
+    }
+
+    func getData() {
+        //コンテキスト作成
+        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        //取得してきたPlanを全件表示
+        do{
+            planArray = try managedContext.fetch(Plan.fetchRequest())
+        }
+        catch{
+            print("読み込み失敗")
         }
     }
 
@@ -99,19 +101,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "cellSegue" {
             let indexPath = self.tableView.indexPathForSelectedRow
             //(不明点: indexPath!.row番目のタスクをEditPlanViewControllerに渡したい)
-            EditPlanViewController.task = taskArray[indexPath!.row]
+            EditPlanViewController.plan = planArray[indexPath!.row]
         } else {
-            let task = Task()
+            //+ボタンでの遷移　Plan新規作成のとき
+            // Planのエンティティを指定
+            let entity = NSEntityDescription.entity(forEntityName: "Plan", in: managedContext)
+            let plan = Plan(entity: entity!, insertInto: managedContext)
             //(不明点: realm を使わずallTasksを定義したい)
-//            let allTasks = realm.objects(Task.self)
-//            if allTasks.count != 0 {
-//                task.id = allTasks.max(ofProperty: "id")! + 1
-//            }
-
-            EditPlanViewController.task = task
+            var allTasks = [] as NSArray
+            do {
+                allTasks = try managedContext.fetch(Plan.fetchRequest()) as NSArray
+            }catch{
+              // エラーのときのコード
+                print("読み込み失敗")
+            }
+            print(allTasks.count)
+            if allTasks.count != 0 {
+                plan.id = Int32(Int(allTasks.count + 1))
+            }
+            EditPlanViewController.plan = plan
         }
     }
-
-
 }
 
