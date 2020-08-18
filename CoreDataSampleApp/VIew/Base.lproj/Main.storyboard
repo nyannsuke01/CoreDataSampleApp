@@ -138,6 +138,7 @@
                                 <state key="normal" title="SHOW TASKS▶︎"/>
                                 <connections>
                                     <action selector="showTask:" destination="QTx-nK-eWB" eventType="touchUpInside" id="rDJ-Vk-vyq"/>
+                                    <segue destination="MOd-AH-Nfc" kind="show" identifier="toTasks" id="WLl-4D-Lc6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -177,7 +178,6 @@
                         <outlet property="fromDatePicker" destination="2I6-sa-4PO" id="fLe-p8-v3K"/>
                         <outlet property="titleTextField" destination="tst-bf-1xi" id="HGs-Me-5hS"/>
                         <outlet property="toDatePicker" destination="V5v-ZZ-5Bg" id="kez-Ci-lDp"/>
-                        <segue destination="MOd-AH-Nfc" kind="show" identifier="toTasks" id="mhO-uY-TIm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fq-iK-pti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

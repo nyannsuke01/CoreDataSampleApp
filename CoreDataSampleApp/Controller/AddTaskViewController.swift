@@ -14,24 +14,22 @@ class AddTaskViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var detailTextView: UITextView!
 
+    var task: Task!
+
+    // CoreDataに指令を出すmanagedContextを生成
+    let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         titleTextField.delegate = self
         detailTextView.delegate = self
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-
+        titleTextField.text! = task.title!
+        detailTextView.text! = task.detail!
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        // CoreDataに指令を出すmanagedContextを生成
-        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        // Taskエンティティを指定
-        let entity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)
-        let task = Task(entity: entity!, insertInto: managedContext)
         // データ追加
         task.title = titleTextField.text!
         task.detail = detailTextView.text!
@@ -39,7 +37,7 @@ class AddTaskViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         do{
             try managedContext.save()
         }catch{
-
+            print("保存ができませんでした")
         }
     }
 }

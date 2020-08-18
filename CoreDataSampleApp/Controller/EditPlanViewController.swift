@@ -30,30 +30,22 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
         titleTextField.delegate = self
         detailTextView.delegate = self
 
-//        titleTextField?.text = plan.title
-//        detailTextView?.text = plan.detail
-//        fromDatePicker?.date = plan.date_to!
-//        toDatePicker?.date = plan.date_from!
+        titleTextField.text! = plan.title!
+        detailTextView.text! = plan.detail!
+        fromDatePicker.date = plan.date_from!
+        toDatePicker.date = plan.date_to!
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        // CoreDataに指令を出すmanagedContextを生成
-        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-       // let plan = Plan(context: managedContext)
-
-        // Shopエンティティを指定
-        let entity = NSEntityDescription.entity(forEntityName: "Plan", in: managedContext)
-        let plan = Plan(entity: entity!, insertInto: managedContext)
         plan.title = titleTextField.text!
         plan.detail = detailTextView.text!
         plan.date_from = fromDatePicker.date
         plan.date_to = toDatePicker.date
         //保存
-      //  (UIApplication.shared.delegate as! AppDelegate).saveContext()
         do{
-             try (UIApplication.shared.delegate as! AppDelegate).saveContext()
-         }catch{
+             try managedContext.save()
+        }catch{
             print("保存ができませんでした")
          }
         
@@ -67,7 +59,7 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }
 
     @IBAction func showTask(_ sender: Any) {
-        self.performSegue(withIdentifier: "toTasks", sender: nil)
+     //   self.performSegue(withIdentifier: "toTasks", sender: nil)
         
     }
 

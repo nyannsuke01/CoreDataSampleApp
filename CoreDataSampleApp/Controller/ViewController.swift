@@ -71,7 +71,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let task = planArray[indexPath.row]
             managedContext.delete(task)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
-
             do {
                 planArray = try managedContext.fetch(Plan.fetchRequest())
             }
@@ -107,17 +106,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // Planのエンティティを指定
             let entity = NSEntityDescription.entity(forEntityName: "Plan", in: managedContext)
             let plan = Plan(entity: entity!, insertInto: managedContext)
-            //(不明点: realm を使わずallTasksを定義したい)
-            var allTasks = [] as NSArray
+              // データ初期化
+            plan.title = ""
+            plan.detail = ""
+            plan.date_from = Date()
+            plan.date_to = Date()
+            //(不明点: realm を使わずallPlansを定義したい)
+            var allPlans = [] as NSArray
             do {
-                allTasks = try managedContext.fetch(Plan.fetchRequest()) as NSArray
+                allPlans = try managedContext.fetch(Plan.fetchRequest()) as NSArray
             }catch{
               // エラーのときのコード
                 print("読み込み失敗")
             }
-            print(allTasks.count)
-            if allTasks.count != 0 {
-                plan.id = Int32(Int(allTasks.count + 1))
+            print("作成されるセルは" + String(allPlans.count) + "番目です")
+            if allPlans.count != 0 {
+                plan.id = Int32(Int(allPlans.count))
             }
             EditPlanViewController.plan = plan
         }
