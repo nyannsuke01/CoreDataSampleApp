@@ -39,5 +39,6 @@ class AddTaskViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         }catch{
             print("保存ができませんでした")
         }
+        super.viewWillDisappear(animated)
     }
 }

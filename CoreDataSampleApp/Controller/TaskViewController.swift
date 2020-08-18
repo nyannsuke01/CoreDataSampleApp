@@ -31,7 +31,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     // 入力画面から戻ってきた時にTableViewを更新させる
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // getData()
+        getData()
         tableView.reloadData()
 
     }
@@ -83,20 +83,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         // データを指定する。この場合ショップ名が市場のレコード。
         fetchRequest.predicate = NSPredicate(format: "plan_id = %@", planId)
-        // データを格納する空の配列を用意
-        var results = [] as NSArray
-        // 読み込み実行
-        do {
-            results = try managedContext.fetch(Task.fetchRequest()) as NSArray
-        }catch{
-
-        }
-        // Shopインスタンスを生成
-       // let plan = results[taskArray.count] as! Pla
-
-        // リレーションさせるデータを追加
-      
-
         //取得してきたTaskを全件表示
         do{
             taskArray = try managedContext.fetch(fetchRequest)
@@ -118,10 +104,10 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Taskのエンティティを指定
             let entity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)
             let task = Task(entity: entity!, insertInto: managedContext)
-              // データ初期化
+            // データ初期化
             task.title = ""
             task.detail = ""
-            //(不明点: realm を使わずallTasksを定義したい)
+            //allTasksを定義
             var allTasks = [] as NSArray
             do {
                 allTasks = try managedContext.fetch(Task.fetchRequest()) as NSArray

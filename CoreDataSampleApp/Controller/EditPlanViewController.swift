@@ -47,8 +47,7 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
              try managedContext.save()
         }catch{
             print("保存ができませんでした")
-         }
-        
+        }
         super.viewWillDisappear(animated)
     }
 
@@ -57,10 +56,4 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
         // キーボードを閉じる
         view.endEditing(true)
     }
-
-    @IBAction func showTask(_ sender: Any) {
-     //   self.performSegue(withIdentifier: "toTasks", sender: nil)
-        
-    }
-
 }
