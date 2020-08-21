@@ -37,7 +37,7 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-
+        //　画面から離れるとき、planに入力された項目を入れる。
         plan.title = titleTextField.text!
         plan.detail = detailTextView.text!
         plan.date_from = fromDatePicker.date
@@ -51,6 +51,17 @@ class EditPlanViewController: UIViewController, UITextFieldDelegate, UITextViewD
         super.viewWillDisappear(animated)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toTasks") {
+             let TaskViewController: TaskViewController = segue.destination as! TaskViewController
+
+             //plan.idをTaskViewControllerに渡す。
+            TaskViewController.planId = Int(plan.id)
+         }
+    }
+
+    // PlanのidをTaskが持っているplan_idに渡す
+  //  TaskViewController.planId = plan.id
 
     @objc func dismissKeyboard(){
         // キーボードを閉じる

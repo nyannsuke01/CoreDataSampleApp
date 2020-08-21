@@ -12,8 +12,8 @@ import CoreData
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 
-    @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var taskTableView: UITableView!
+
     //コンテキスト作成
     let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     // taskArray配列を定義
@@ -24,28 +24,35 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.delegate = self
-        tableView.dataSource = self
+        taskTableView.delegate = self
+        taskTableView.dataSource = self
+        print("planIdは：" + String(planId) + "です。")
     }
     
     // 入力画面から戻ってきた時にTableViewを更新させる
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getData()
-        tableView.reloadData()
+        taskTableView.reloadData()
 
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return taskArray.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskArray.count
     }
 
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath)
         //taskCellに値を設定する
         let task = taskArray[indexPath.row]
         taskCell.textLabel?.text = task.title
-        
+        taskCell.detailTextLabel?.text = task.detail
+
         return taskCell
     }
 
@@ -63,8 +70,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 
-            let task = taskArray[indexPath.row]
-            managedContext.delete(task)
+            let deleteTaskCell = taskArray[indexPath.row]
+            managedContext.delete(deleteTaskCell)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
             do {
                 taskArray = try managedContext.fetch(Task.fetchRequest())
@@ -96,7 +103,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let AddTaskViewController:AddTaskViewController = segue.destination as! AddTaskViewController
 
         if segue.identifier == "taskCellSegue" {
-            let indexPath = self.tableView.indexPathForSelectedRow
+            let indexPath = self.taskTableView.indexPathForSelectedRow
 
             AddTaskViewController.task = taskArray[indexPath!.row]
         } else {
@@ -107,6 +114,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             // データ初期化
             task.title = ""
             task.detail = ""
+            task.plan_id = Int32(planId)
             //allTasksを定義
             var allTasks = [] as NSArray
             do {

@@ -68,8 +68,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 
-            let task = planArray[indexPath.row]
-            managedContext.delete(task)
+            let deletePlanCell = planArray[indexPath.row]
+            managedContext.delete(deletePlanCell)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
             do {
                 planArray = try managedContext.fetch(Plan.fetchRequest())
@@ -82,8 +82,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func getData() {
-        //コンテキスト作成
-        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         //取得してきたPlanを全件表示
         do{
             planArray = try managedContext.fetch(Plan.fetchRequest())
@@ -99,7 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         if segue.identifier == "cellSegue" {
             let indexPath = self.tableView.indexPathForSelectedRow
-            //(不明点: indexPath!.row番目のタスクをEditPlanViewControllerに渡したい)
+            //indexPath!.row番目のタスクをEditPlanViewControllerに渡す
             EditPlanViewController.plan = planArray[indexPath!.row]
         } else {
             //+ボタンでの遷移　Plan新規作成のとき
